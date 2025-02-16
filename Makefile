@@ -18,6 +18,8 @@ AR				=	ar rcs
 
 MLX42_DIR		=	MLX42
 MLX42			=	$(MLX42_DIR)/build/libmlx42.a -ldl -lglfw -pthread -lm
+LIBFT_PATH		= 	libft
+LIBFT			= 	libft.a
 
 INC				= 	inc/
 SRC_DIR			= 	src/
@@ -29,8 +31,8 @@ OBJ = $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRC))
 
 all : $(MLX42) $(NAME)
 
-$(NAME) : $(OBJ)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(MLX42) -I $(INC)
+$(NAME) : $(OBJ) $(LIBFT_PATH)/$(LIBFT)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT_PATH)/$(LIBFT) $(MLX42) -I $(INC)
 
 $(OBJ_DIR)%.o:	$(SRC_DIR)%.c
 	@mkdir -p $(@D)
@@ -44,13 +46,17 @@ $(MLX42):
 	@cmake -B $(MLX42_DIR)/build -S $(MLX42_DIR) > /dev/null 2>&1
 	@make -C $(MLX42_DIR)/build -j4 > /dev/null 2>&1
 
+$(LIBFT_PATH)/$(LIBFT) : 
+	@make -C $(LIBFT_PATH) > /dev/null 2>&1
 
 clean :
 	@$(RM) -f $(OBJ)
 	@$(RM) -rf $(OBJ_DIR)
+	@make -C $(LIBFT_PATH) clean > /dev/null 2>&1
 
 fclean : clean
 	@$(RM) $(NAME)
 	@$(RM) -rf $(MLX42_DIR)
+	@make -C $(LIBFT_PATH) fclean > /dev/null 2>&1
 
 re : clean fclean all
