@@ -58,8 +58,8 @@ typedef struct s_map
     char   *south_texture;
     char   *west_texture;
     char   *east_texture;
-    char   *floor_texture;
-    char   *ceiling_texture;
+    int    floor_color;
+    int    ceiling_color;
     mlx_t  *mlx;
 }   t_map;
 
