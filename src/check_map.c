@@ -12,6 +12,47 @@
 
 #include "../inc/cub3d.h"
 
+int is_texture(char *line)
+{
+    if (ft_strncmp(line, "NO ", 3) == 0)
+        return (1);
+    if (ft_strncmp(line, "SO ", 3) == 0)
+        return (1);
+    if (ft_strncmp(line, "WE ", 3) == 0)
+        return (1);
+    if (ft_strncmp(line, "EA ", 3) == 0)
+        return (1);
+    return (0);
+}
+
+void parse_texture(char *line, t_map *map)
+{   
+    char *path;
+
+    path = ft_strtrim(line + 2, " \t\n");
+    if (!path)
+        return ;
+    if (!check_format(path, ".png") || !check_format(path, ".PNG"))
+    {
+        printf("Error: Invalid texture format\n");
+        free(path);
+        return ;
+    }
+    if (ft_strncmp(line, "NO ", 3) == 0 && !map->nord_texture)
+        map->nord_texture = path;
+    else if (ft_strncmp(line, "SO ", 3) == 0 && !map->south_texture)
+        map->south_texture = path;
+    else if (ft_strncmp(line, "WE ", 3) == 0 && !map->west_texture)
+        map->west_texture = path;
+    else if (ft_strncmp(line, "EA ", 3) == 0 && !map->east_texture)
+        map->east_texture = path;
+    else
+    {
+        printf("Error: Duplicate texture\n");
+        free(path);
+    }
+}
+
 int parse_line(char *line, t_map *map)
 {
     //trim empty lines
@@ -23,20 +64,13 @@ int parse_line(char *line, t_map *map)
     if (trimmed_line[0] == '\0')
         return (free(trimmed_line), 1);
     if (is_texture(trimmed_line)) //parse NO SO WE EA check format get texture
-    {
-        if (!parse_texture(trimmed_line, map))
-            return (free(trimmed_line), 0);
-    }
-    else if (is_color(trimmed_line)) //parse F C get color
-    {
-        if (!parse_color(trimmed_line, map))
-            return (free(trimmed_line), 0);
-    }
-    else  //store map lines after trimming everything(map doesn't need to be square)
-    {
-        if (!parse_map(trimmed_line, map))
-            return (free(trimmed_line), 0);
-    }
+        parse_texture(trimmed_line, map);
+    // else if (is_color(trimmed_line)) //parse F C get color
+    //     parse_color(trimmed_line, map)
+    // else  //store map lines after trimming everything(map doesn't need to be square)
+    // {
+    //     parse_map(trimmed_line, map)
+    // }
     free(trimmed_line);
     return(0);
 }
@@ -60,7 +94,7 @@ int check_map(char *path)
         line = get_next_line(fd);
     }
     close(fd);
-    if (!validate_map(&map)) //then we need to check the new_map for: invalid characters, map rules, player position and view direction
-        return (1);
+    // if (!validate_map(&map)) //then we need to check the new_map for: invalid characters, map rules, player position and view direction
+    //     return (1);
     return (0);
 }

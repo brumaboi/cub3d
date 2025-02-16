@@ -67,5 +67,6 @@ typedef struct s_cub3d
 
 int check_map(char *path);
 int check_input(int argc, char **argv);
+int	check_format(char *path, char *format);
 
 #endif
