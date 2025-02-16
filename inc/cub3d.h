@@ -18,27 +18,9 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <math.h>
-# include <mlx.h>
-
-typedef struct s_cub3d
-{
-    mlx_t       *mlx;
-    mlx_win_t   *win;
-    mlx_img_t   *img;
-    t_map       map;
-    t_player    player;
-}   t_cub3d;
-
-typedef struct s_player
-{
-    t_pos   pos;
-    int     direction;
-    int     turn_direction;
-    int     walk_direction;
-    double  rotation_angle;
-    double  walk_speed;
-    double  turn_speed;
-}   t_player;
+# include "../libft/inc/libft.h"
+# include "../libft/inc/get_next_line.h"
+# include "../MLX42/include/MLX42/MLX42.h"
 
 typedef struct s_pos
 {
@@ -62,5 +44,28 @@ typedef struct s_map
     int    ceiling_color;
     mlx_t  *mlx;
 }   t_map;
+
+typedef struct s_player
+{
+    t_pos   pos;
+    int     direction;
+    int     turn_direction;
+    int     walk_direction;
+    double  rotation_angle;
+    double  walk_speed;
+    double  turn_speed;
+}   t_player;
+
+typedef struct s_cub3d
+{
+    mlx_t       *mlx;
+    void   *win;
+    void   *img;
+    t_map       map;
+    t_player    player;
+}   t_cub3d;
+
+int check_map(char *path);
+int check_input(int argc, char **argv);
 
 #endif

@@ -17,9 +17,9 @@ int main(int argc, char **argv)
     t_cub3d cub;
 
     ft_bzero(&cub, sizeof(t_cub3d));
-    if (!check_input(agrc, argv))
+    if (check_input(argc, argv)  != 0)
         return (1);
-    if (!check_map(argv[1], &cub))
+    if (check_map(argv[1]) != 0)
         return (1);
     return (0);
 }

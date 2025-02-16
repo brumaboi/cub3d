@@ -12,7 +12,7 @@
 
 #include "../inc/cub3d.h"
 
-void parse_line(char *line, t_map *map)
+int parse_line(char *line, t_map *map)
 {
     //trim empty lines
     char *trimmed_line;
@@ -22,13 +22,26 @@ void parse_line(char *line, t_map *map)
         return (printf("Error: Memory allocation failed\n"), 0);
     if (trimmed_line[0] == '\0')
         return (free(trimmed_line), 1);
-    //parse NO SO WE EA check format get texture
-    //parse F C get color
-    //store map lines after trimming everything(map doesn't need to be square)
-    //then we need to check the new_map for: invalid characters, map rules, player position and view direction
+    if (is_texture(trimmed_line)) //parse NO SO WE EA check format get texture
+    {
+        if (!parse_texture(trimmed_line, map))
+            return (free(trimmed_line), 0);
+    }
+    else if (is_color(trimmed_line)) //parse F C get color
+    {
+        if (!parse_color(trimmed_line, map))
+            return (free(trimmed_line), 0);
+    }
+    else  //store map lines after trimming everything(map doesn't need to be square)
+    {
+        if (!parse_map(trimmed_line, map))
+            return (free(trimmed_line), 0);
+    }
+    free(trimmed_line);
+    return(0);
 }
 
-check_map(char *path)
+int check_map(char *path)
 {
     int fd;
     char *line;
@@ -39,12 +52,15 @@ check_map(char *path)
     if (fd < 0)
         return (printf("Error: Could not open file\n"), 1);
     line = get_next_line(fd);
-    while (line > 0)
+    while (line != 0)
     {
         if (!parse_line(line, &map))
             return (1);
         free(line);
         line = get_next_line(fd);
     }
+    close(fd);
+    if (!validate_map(&map)) //then we need to check the new_map for: invalid characters, map rules, player position and view direction
+        return (1);
     return (0);
 }

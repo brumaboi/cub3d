@@ -25,7 +25,9 @@ INC				= 	inc/
 SRC_DIR			= 	src/
 OBJ_DIR			= 	obj/
 	   
-SRC 			= $(SRC_DIR)main.c
+SRC 			= $(SRC_DIR)main.c \
+				  $(SRC_DIR)check_input.c \
+				  $(SRC_DIR)check_map.c
 				  
 OBJ = $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRC))
 
@@ -56,7 +58,6 @@ clean :
 
 fclean : clean
 	@$(RM) $(NAME)
-	@$(RM) -rf $(MLX42_DIR)
 	@make -C $(LIBFT_PATH) fclean > /dev/null 2>&1
 
 re : clean fclean all
