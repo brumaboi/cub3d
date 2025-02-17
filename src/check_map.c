@@ -32,7 +32,7 @@ void parse_texture(char *line, t_map *map)
     path = ft_strtrim(line + 2, " \t\n");
     if (!path)
         return ;
-    if (!check_format(path, ".png") || !check_format(path, ".PNG"))
+    if (!check_format(path, ".png"))
     {
         printf("Error: Invalid texture format\n");
         free(path);
@@ -77,7 +77,7 @@ void parse_color(char *line, t_map *map)
     free(color);
     if (!*rgb)
         return ;
-    if (!rgb[0] || !rgb[1] || !rgb[2] || *rgb[3])
+    if (!rgb[0] || !rgb[1] || !rgb[2] || rgb[3] != NULL)
     {
         printf("Error: Invalid color\n");
         free(*rgb);
@@ -99,6 +99,29 @@ void parse_color(char *line, t_map *map)
         map->ceiling_color = (r << 16) + (g << 8) + b;
 }
 
+void parse_map(char *line, t_map *map)
+{
+    char **new_map;
+    size_t old_size;
+    size_t new_size;
+    size_t i;
+
+    old_size = (map->rows + 1) * sizeof(char *);
+    new_size = (map->rows + 2) * sizeof(char *);
+    new_map = (char **)ft_realloc(map->map, old_size, new_size);
+    if (!new_map)
+        return ;
+    new_map[map->rows] = ft_strdup(line);
+    if (!new_map[map->rows])
+        return ;
+    new_map[map->rows + 1] = NULL;
+    map->map = new_map;
+    map->rows++;
+    i = ft_strlen(line);
+    if (i > (size_t)map->columns)
+        map->columns = i;
+}
+
 int parse_line(char *line, t_map *map)
 {
     //trim empty lines
@@ -113,12 +136,13 @@ int parse_line(char *line, t_map *map)
         parse_texture(trimmed_line, map);
     else if (is_color(trimmed_line)) //parse F C get color
         parse_color(trimmed_line, map);
-    // else  //store map lines after trimming everything(map doesn't need to be square)
-    // {
-    //     parse_map(trimmed_line, map)
-    // }
+    else  //store map lines after trimming everything
+    {
+        parse_map(trimmed_line, map);
+    }
     free(trimmed_line);
-    return(0);
+    debug_print_map(map);
+    return(1);
 }
 
 int check_map(char *path)
