@@ -124,10 +124,10 @@ void parse_map(char *line, t_map *map)
 
 int parse_line(char *line, t_map *map)
 {
-    //trim empty lines
     char *trimmed_line;
+    char *map_line;
 
-    trimmed_line = ft_strtrim(line, " \t\n");
+    trimmed_line = ft_strtrim(line, " \t\n\r");
     if (!trimmed_line)
         return (printf("Error: Memory allocation failed\n"), 0);
     if (trimmed_line[0] == '\0')
@@ -138,7 +138,9 @@ int parse_line(char *line, t_map *map)
         parse_color(trimmed_line, map);
     else  //store map lines after trimming everything
     {
-        parse_map(trimmed_line, map);
+        map_line = ft_strtrim(line, "\n\r");
+        parse_map(map_line, map);
+        free(map_line);
     }
     free(trimmed_line);
     debug_print_map(map);
@@ -164,6 +166,7 @@ int check_map(char *path)
         line = get_next_line(fd);
     }
     close(fd);
+    debug_print_map(&map);
     // if (!validate_map(&map)) //then we need to check the new_map for: invalid characters, map rules, player position and view direction
     //     return (1);
     return (0);
