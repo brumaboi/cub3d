@@ -53,6 +53,52 @@ void parse_texture(char *line, t_map *map)
     }
 }
 
+int is_color(char *line)
+{
+    if (ft_strncmp(line, "F ", 2) == 0)
+        return (1);
+    if (ft_strncmp(line, "C ", 2) == 0)
+        return (1);
+    return (0);
+}
+
+void parse_color(char *line, t_map *map)
+{
+    char    **rgb;
+    char    *color;
+    int     r;
+    int     g;
+    int     b;
+
+    color = ft_strtrim(line + 1, " \t\n");
+    if (!color)
+        return ;
+    rgb = ft_split(color, ',');
+    free(color);
+    if (!*rgb)
+        return ;
+    if (!rgb[0] || !rgb[1] || !rgb[2] || *rgb[3])
+    {
+        printf("Error: Invalid color\n");
+        free(*rgb);
+        return ;
+    }
+    r = ft_atoi(rgb[0]);
+    g = ft_atoi(rgb[1]);
+    b = ft_atoi(rgb[2]);
+    if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
+    {
+        printf("Error: Invalid color\n");
+        free(*rgb);
+        return ;
+    }
+    free(*rgb);
+    if (ft_strncmp(line, "F ", 2) == 0)
+        map->floor_color = (r << 16) + (g << 8) + b;
+    else
+        map->ceiling_color = (r << 16) + (g << 8) + b;
+}
+
 int parse_line(char *line, t_map *map)
 {
     //trim empty lines
@@ -65,8 +111,8 @@ int parse_line(char *line, t_map *map)
         return (free(trimmed_line), 1);
     if (is_texture(trimmed_line)) //parse NO SO WE EA check format get texture
         parse_texture(trimmed_line, map);
-    // else if (is_color(trimmed_line)) //parse F C get color
-    //     parse_color(trimmed_line, map)
+    else if (is_color(trimmed_line)) //parse F C get color
+        parse_color(trimmed_line, map);
     // else  //store map lines after trimming everything(map doesn't need to be square)
     // {
     //     parse_map(trimmed_line, map)
