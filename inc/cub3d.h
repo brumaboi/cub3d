@@ -65,7 +65,18 @@ typedef struct s_cub3d
     t_player    player;
 }   t_cub3d;
 
+//map
+//config
+int is_texture(char *line);
+void parse_texture(char *line, t_map *map);
+int is_color(char *line);
+void parse_color(char *line, t_map *map);
+//parser
+int parse_line(char *line, t_map *map);
+void parse_map(char *line, t_map *map);
+//checker_map
 int check_map(char *path);
+
 int check_input(int argc, char **argv);
 int	check_format(char *path, char *format);
 

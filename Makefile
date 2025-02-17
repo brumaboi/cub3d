@@ -27,7 +27,9 @@ OBJ_DIR			= 	obj/
 	   
 SRC 			= $(SRC_DIR)main.c \
 				  $(SRC_DIR)check_input.c \
-				  $(SRC_DIR)check_map.c
+				  $(SRC_DIR)map/1_check_map.c \
+				  $(SRC_DIR)map/2_parser.c \
+				  $(SRC_DIR)map/3_config.c
 				  
 OBJ = $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRC))
 
