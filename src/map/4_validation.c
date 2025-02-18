@@ -6,11 +6,44 @@
 /*   By: sbruma <sbruma@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 14:42:21 by sbruma            #+#    #+#             */
-/*   Updated: 2025/02/18 14:44:01 by sbruma           ###   ########.fr       */
+/*   Updated: 2025/02/18 15:41:26 by sbruma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
+
+static int is_walkable(char c)
+{
+    return (c == FLOOR || c == 'N' || c == 'S' || c == 'E' || c == 'W');
+}
+
+int check_surroundings(t_map *map)
+{
+    int i;
+    int j;
+    int row_len;
+    char cell;
+    
+    i = 0;
+    while (i < map->rows)
+    {
+        row_len = ft_strlen(map->map[i]);
+        j = 0;
+        while (j < row_len)
+        {
+            cell = map->map[i][j];
+            if (is_walkable(cell))
+            {
+                //vertical, horizontal, diagonal surrounding check logic
+                // if(check_touch(map, i, j) == 1)
+                //     return(1);
+            }
+            j++;
+        }
+        i++;
+    }
+    return (0);
+}
 
 static void get_bounds(const char *row, int *start, int *end)
 {
@@ -91,7 +124,8 @@ int validate_map(t_map *map)
         return(0);
     if(check_bounds(map) == 1)
         return (0);
-    // check_neighbors(map);
+    if (check_surroundings(map) == 1)
+        return(0);
     // check_player_mobility(map);
     return (1);
 }
