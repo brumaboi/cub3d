@@ -6,13 +6,13 @@
 /*   By: sbruma <sbruma@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 16:05:32 by sbruma            #+#    #+#             */
-/*   Updated: 2025/02/18 16:07:04 by sbruma           ###   ########.fr       */
+/*   Updated: 2025/02/18 17:11:09 by sbruma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../inc/cub3d.h"
 
-static int is_walkable(char c)
+int is_walkable(char c)
 {
     return (c == FLOOR || c == 'N' || c == 'S' || c == 'E' || c == 'W');
 }

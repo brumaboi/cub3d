@@ -84,6 +84,8 @@ int validate_map(t_map *map);
 int check_elements(t_map *map);
 int check_bounds(t_map *map);
 int check_surroundings(t_map *map);
+int is_walkable(char c);
+int check_player_mobility(t_map *map);
 
 int check_input(int argc, char **argv);
 int	check_format(char *path, char *format);
