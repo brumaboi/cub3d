@@ -79,6 +79,8 @@ int parse_line(char *line, t_map *map);
 void parse_map(char *line, t_map *map);
 //checker_map
 int check_map(char *path);
+//validation
+int validate_map(t_map *map);
 
 int check_input(int argc, char **argv);
 int	check_format(char *path, char *format);
