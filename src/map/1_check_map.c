@@ -12,6 +12,56 @@
 
 #include "../../inc/cub3d.h"
 
+static void get_bounds(const char *row, int *start, int *end)
+{
+    int i;
+
+    i = ft_strlen(row);
+    *start = 0;
+    while (*start < i && ft_isspace(row[*start]))
+        (*start)++;
+    *end = i - 1;
+    while (*end >= 0 && ft_isspace(row[*end]))
+        (*end)--;
+}
+
+int check_bounds(t_map *map)
+{
+    int start;
+    int end;
+    int i;
+
+    i = 0;
+    while (i < map->rows)
+    {
+        if (ft_strlen(map->map[i]) == 0)
+            return (printf("Error: Empty row in map\n"), 1);
+        if (i != 0 && i != map->rows -1)
+        {
+            get_bounds(map->map[i], &start, &end);
+            if (start > end)
+                return(printf("Error: No valid characters\n"), 1);
+            if (map->map[i][start] != WALL)
+                return(printf("Error: Row doesn't start with a wall\n"), 1);
+            if (map->map[i][end] != WALL)
+                return(printf("Error: Row doesn't end with a wall\n"), 1);
+
+        }
+        i++;
+    }
+    return(0);
+}
+
+int validate_map(t_map *map)
+{   
+    if(check_bounds(map) == 1)
+        return (0);
+    // check_elements(map);
+    // check_neighbors(map);
+    // check_player_mobility(map);
+    return (1);
+}
+
 int check_map(char *path)
 {
     int fd;
@@ -31,7 +81,7 @@ int check_map(char *path)
         line = get_next_line(fd);
     }
     close(fd);
-    // if (!validate_map(&map)) //then we need to check the new_map for: invalid characters, map rules, player position and view direction
-    //     return (1);
+    if (!validate_map(&map)) //then we need to check the new_map for: invalid characters, map rules, player position and view direction
+        return (1);
     return (0);
 }

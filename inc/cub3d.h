@@ -22,6 +22,9 @@
 # include "../libft/inc/get_next_line.h"
 # include "../MLX42/include/MLX42/MLX42.h"
 
+# define WALL '1'
+# define FLOOR '0'
+
 typedef struct s_pos
 {
     int x;
