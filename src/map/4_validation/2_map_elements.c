@@ -6,7 +6,7 @@
 /*   By: sbruma <sbruma@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 16:05:01 by sbruma            #+#    #+#             */
-/*   Updated: 2025/02/18 16:05:17 by sbruma           ###   ########.fr       */
+/*   Updated: 2025/02/18 17:18:10 by sbruma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,20 @@ int check_bounds(t_map *map)
     return(0);
 }
 
+void save_player_data(t_map *map, int elem, int i, int j)
+{
+    map->player_pos.x = j;
+    map->player_pos.y = i;
+    if (elem == 'N')
+        map->player = 0;
+    else if (elem == 'S')
+        map->player = 1;
+    else if (elem == 'W')
+        map->player = 2;
+    else if (elem == 'E')
+        map->player = 3;
+}
+
 int check_elements(t_map *map)
 {
     int i;
@@ -73,8 +87,7 @@ int check_elements(t_map *map)
             if (elem == 'N' || elem == 'S' || elem == 'E' || elem == 'W')
             {
                 player_count++;
-                map->player_pos.x = j;
-                map->player_pos.y = i;
+                save_player_data(map, elem, i , j);
             }
             j++;
         }
