@@ -52,11 +52,45 @@ int check_bounds(t_map *map)
     return(0);
 }
 
+int check_elements(t_map *map)
+{
+    int i;
+    int j;
+    int player_count;
+    int elem;
+
+    player_count = 0;
+    i = 0;
+    while (i < map->rows)
+    {
+        j = 0;
+        while (map->map[i][j] != '\0')
+        {
+            elem = map->map[i][j];
+            if (elem != WALL && elem != FLOOR && elem != ' '
+                && elem != 'N' && elem != 'S' && elem != 'E' && elem != 'W')
+                return(printf("Error: Invalid element found\n"), 1);
+            if (elem == 'N' || elem == 'S' || elem == 'E' || elem == 'W')
+            {
+                player_count++;
+                map->player_pos.x = j;
+                map->player_pos.y = i;
+            }
+            j++;
+        }
+        i++;
+    }
+    if (player_count != 1)
+        return (printf("Error: Wrong number of players\n"), 1);
+    return (0);
+}
+
 int validate_map(t_map *map)
 {   
+    if (check_elements(map) == 1)
+        return(0);
     if(check_bounds(map) == 1)
         return (0);
-    // check_elements(map);
     // check_neighbors(map);
     // check_player_mobility(map);
     return (1);
