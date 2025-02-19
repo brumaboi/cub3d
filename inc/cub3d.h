@@ -27,8 +27,8 @@
 
 typedef struct s_pos
 {
-    int x;
-    int y;
+    double x;
+    double y;
 }   t_pos;
 
 typedef struct s_map
@@ -45,13 +45,13 @@ typedef struct s_map
     char   *east_texture;
     int    floor_color;
     int    ceiling_color;
-    mlx_t  *mlx;
 }   t_map;
 
 typedef struct s_player
 {
     t_pos   pos;
-    int     direction;
+    t_pos   dir;
+    t_pos   plane;
     int     turn_direction;
     int     walk_direction;
     double  rotation_angle;
@@ -62,8 +62,8 @@ typedef struct s_player
 typedef struct s_cub3d
 {
     mlx_t       *mlx;
-    void   *win;
-    void   *img;
+    void        *win;
+    void        *img;
     t_map       map;
     t_player    player;
 }   t_cub3d;
