@@ -64,6 +64,7 @@ typedef struct s_cub3d
     mlx_t       *mlx;
     void        *win;
     void        *img;
+    mlx_texture_t *walls[4];
     t_map       map;
     t_player    player;
 }   t_cub3d;
@@ -78,7 +79,7 @@ void parse_color(char *line, t_map *map);
 int parse_line(char *line, t_map *map);
 void parse_map(char *line, t_map *map);
 //checker_map
-int check_map(char *path);
+int check_map(char *path, t_map *map);
 //validation
 int validate_map(t_map *map);
 int check_elements(t_map *map);
