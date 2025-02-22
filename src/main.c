@@ -33,11 +33,40 @@ int load_walls(t_cub3d *cub)
     return (0);
 }
 
+void draw_background(t_cub3d *cub)
+{
+    int i;
+    int j;
+
+    cub->bg_img = mlx_new_image(cub->mlx, WWINDOW, HWINDOW);
+    if (!cub->bg_img)
+    {
+        printf("Error: Failed to create background image\n");
+        return;
+    }
+    i = 0;
+    while (i < HWINDOW)
+    {
+        j = 0;
+        while (j < WWINDOW)
+        {
+            if (i < HWINDOW / 2)
+                mlx_put_pixel(cub->bg_img, j, i, cub->map.ceiling_color);
+            else
+                mlx_put_pixel(cub->bg_img, j, i, cub->map.floor_color);
+            j++;
+        }
+        i++;
+    }
+    mlx_image_to_window(cub->mlx, cub->bg_img, 0, 0);
+}
+
 int init_game(t_cub3d *cub)
 {
-    cub->mlx = mlx_init(800, 600, "Cub3D", false);
+    cub->mlx = mlx_init(WWINDOW, HWINDOW, "Cub3D", false);
     if (!cub->mlx)
         return (printf("Error: mlx_init failed\n"), 1);
+    draw_background(cub);
     if (load_walls(cub) != 0)
         return (1);
     return (0);

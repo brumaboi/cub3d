@@ -25,6 +25,9 @@
 # define WALL '1'
 # define FLOOR '0'
 
+# define WWINDOW 800
+# define HWINDOW 600
+
 typedef struct s_pos
 {
     double x;
@@ -65,6 +68,7 @@ typedef struct s_cub3d
     void        *win;
     void        *img;
     mlx_texture_t *walls[4];
+    mlx_image_t *bg_img;
     t_map       map;
     t_player    player;
 }   t_cub3d;
