@@ -12,6 +12,13 @@
 
 #include "../inc/cub3d.h"
 
+int start_game(t_cub3d *cub)
+{
+    ///TODO: Here we need to also loop to render, cast rays, key hooks
+    mlx_loop(cub->mlx);
+    return (0);
+}
+
 int main(int argc, char **argv)
 {
     t_cub3d cub;
@@ -21,14 +28,11 @@ int main(int argc, char **argv)
         return (1);
     if (check_map(argv[1], &cub.map) != 0)
         return (1);
-    ///@TODO: We need to initialize the game(MLX) and the map
     if (init_game(&cub) != 0)
         return (1);
-    ///@TODO: Then we'll need to start the loops(raycasting will need to be in a loop here too)
-    ///@TODO: I'm thinking about something like this:
-    // start_game(&cub);
+    if (start_game(&cub) != 0)
+        return (1);
     ///@TODO: After the program end we need to free everything used:
     // free_game(&cub);
-    mlx_loop(cub.mlx);
     return (0);
 }

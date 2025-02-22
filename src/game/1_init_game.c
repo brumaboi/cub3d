@@ -68,7 +68,7 @@ int init_game(t_cub3d *cub)
         return (printf("Error: mlx_init failed\n"), 1);
     draw_background(cub);
     if (load_walls(cub) != 0)
-        return (printf("Error: failed to load walls\n", 1));
+        return (printf("Error: failed to load walls\n"), 1);
     // if (init_player(cub) != 0)
     //     return (printf("Error: failed to init player\n", 1));
     return (0);
