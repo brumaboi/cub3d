@@ -95,4 +95,7 @@ int check_player_mobility(t_map *map);
 int check_input(int argc, char **argv);
 int	check_format(char *path, char *format);
 
+//game
+int init_game(t_cub3d *cub);
+
 #endif
