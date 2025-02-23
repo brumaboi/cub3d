@@ -61,6 +61,46 @@ void draw_background(t_cub3d *cub)
     mlx_image_to_window(cub->mlx, cub->bg_img, 0, 0);
 }
 
+int init_player(t_cub3d *cub)
+{
+    cub->player.pos.x = cub->map.player_pos.x * TILE_SIZE + TILE_SIZE / 2;
+    cub->player.pos.y = cub->map.player_pos.y * TILE_SIZE + TILE_SIZE / 2;
+    if(cub->map.player == 0)
+    {
+        cub->player.dir.x = 0;
+        cub->player.dir.y = -1;
+        cub->player.plane.x = 0.66;
+        cub->player.plane.y = 0;
+    }
+    else if(cub->map.player == 1)
+    {
+        cub->player.dir.x = 0;
+        cub->player.dir.y = 1;
+        cub->player.plane.x = -0.66;
+        cub->player.plane.y = 0;
+    }
+    else if(cub->map.player == 2)
+    {
+        cub->player.dir.x = -1;
+        cub->player.dir.y = 0;
+        cub->player.plane.x = 0;
+        cub->player.plane.y = -0.66;
+    }
+    else if(cub->map.player == 3)
+    {
+        cub->player.dir.x = 1;
+        cub->player.dir.y = 0;
+        cub->player.plane.x = 0;
+        cub->player.plane.y = 0.66;
+    }
+    else
+    {
+        printf("Error: Invalid player direction\n");
+        return (1);
+    }
+    return (0);
+}
+
 int init_game(t_cub3d *cub)
 {
     cub->mlx = mlx_init(WWINDOW, HWINDOW, "Cub3D", false);
@@ -69,7 +109,7 @@ int init_game(t_cub3d *cub)
     draw_background(cub);
     if (load_walls(cub) != 0)
         return (printf("Error: failed to load walls\n"), 1);
-    // if (init_player(cub) != 0)
-    //     return (printf("Error: failed to init player\n", 1));
+    if (init_player(cub) != 0)
+        return (printf("Error: failed to init player\n", 1));
     return (0);
 }
