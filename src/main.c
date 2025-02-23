@@ -12,12 +12,24 @@
 
 #include "../inc/cub3d.h"
 
+void   key_hook(mlx_key_data_t keydata, void *param)
+{
+    t_cub3d *cub;
+
+    cub = (t_cub3d *)param;
+    if (keydata.action != MLX_PRESS)
+        return ;
+    if (keydata.key == MLX_KEY_ESCAPE)
+        mlx_close_window(cub->mlx);
+    return ;
+}
+
 int start_game(t_cub3d *cub)
 {
     ///TODO: Here we need to also loop to render, cast rays, key hooks
     // mlx_loop_hook(cub->mlx, cast_rays, cub);
     // mlx_loop_hook(cub->mlx, render, cub);
-    // mlx_key_hook(cub->win, key_hook, cub);
+    mlx_key_hook(cub->win, key_hook, cub);
     mlx_loop(cub->mlx);
     return (0);
 }
