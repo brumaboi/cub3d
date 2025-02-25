@@ -24,11 +24,36 @@ void   key_hook(mlx_key_data_t keydata, void *param)
     return ;
 }
 
+void render_frame(t_cub3d *cub)
+{
+    mlx_image_t *img;
+    int i;
+
+    i = 0;
+    while(i < 4)
+    {
+        if (cub->walls[i] != NULL)
+        {
+            img = mlx_texture_to_image(cub->mlx, cub->walls[i]);
+            if (!img)
+                return ;
+            mlx_image_to_window(cub->mlx, img, i * 187, 0);
+        }
+        i++;
+    }
+}
+
+void game_loop(void *param)
+{
+    t_cub3d *cub;
+
+    cub = (t_cub3d *)param;
+    render_frame(cub);
+}
+
 int start_game(t_cub3d *cub)
 {
-    ///TODO: Here we need to also loop to render, cast rays, key hooks
-    // mlx_loop_hook(cub->mlx, cast_rays, cub);
-    // mlx_loop_hook(cub->mlx, render, cub);
+    mlx_loop_hook(cub->mlx, game_loop, cub);
     mlx_key_hook(cub->mlx, key_hook, cub);
     mlx_loop(cub->mlx);
     return (0);
