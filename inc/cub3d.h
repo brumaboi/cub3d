@@ -129,5 +129,8 @@ void draw_background(t_cub3d *cub);
 //raycasting
 void	raycaster(t_cub3d *cub);
 void	cast_ray(int x, t_cub3d *cub);
+void    init_ray_s(t_ray *ray, int x, t_cub3d *cub);
+void    perform_dda(t_ray *ray, t_cub3d *cub);
+void    calculate_wall(t_ray *ray, t_draw *draw, t_cub3d *cub);  
 
 #endif
