@@ -62,6 +62,19 @@ typedef struct s_player
     double  turn_speed;
 }   t_player;
 
+typedef struct s_tex_draw
+{
+    int             y;
+    int             tex_y;
+    int             i;
+    mlx_texture_t   *texture;
+    double          step;
+    double          tex_pos;
+    uint8_t         *color;
+    mlx_image_t     *img;
+    uint8_t         *pixel;
+}   t_tex_draw;
+
 typedef struct s_ray
 {
 	double	dir_x;
@@ -129,8 +142,11 @@ void draw_background(t_cub3d *cub);
 //raycasting
 void	raycaster(t_cub3d *cub);
 void	cast_ray(int x, t_cub3d *cub);
-void    init_ray_s(t_ray *ray, int x, t_cub3d *cub);
+void    init_ray_plane(t_ray *ray, int x, t_cub3d *cub);
+void	init_ray_player(t_ray *ray, t_cub3d *cub);
 void    perform_dda(t_ray *ray, t_cub3d *cub);
 void    calculate_wall(t_ray *ray, t_draw *draw, t_cub3d *cub);  
+void	draw_wall(int x, t_draw *draw, t_cub3d *cub);
+
 
 #endif

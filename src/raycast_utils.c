@@ -3,16 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   raycast_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ezeper <ezeper@student.42.fr>              +#+  +:+       +#+        */
+/*   By: burakemrezeper <burakemrezeper@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 18:40:17 by ezeper            #+#    #+#             */
-/*   Updated: 2025/02/27 19:06:51 by ezeper           ###   ########.fr       */
+/*   Updated: 2025/02/27 19:19:04 by burakemreze      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-static void	perform_dda(t_ray *ray, t_cub3d *cub)
+void	draw_wall(int x, t_draw *draw, t_cub3d *cub)
+{
+	t_tex_draw	td;
+
+	td.texture = cub->walls[draw->tex_num];
+	td.step = 1.0 * 64 / draw->line_height;
+	td.tex_pos = (draw->draw_start - HWINDOW / 2 + draw->line_height / 2) * td.step;
+	td.img = mlx_new_image(cub->mlx, 1, HWINDOW);
+	if (!td.img)
+		return ;
+	td.y = 0;
+	while (td.y < HWINDOW)
+	{
+		if (td.y >= draw->draw_start && td.y < draw->draw_end)
+		{
+			td.tex_y = (int)td.tex_pos & 63;
+			td.tex_pos += td.step;
+			td.color = &td.texture->pixels[(td.tex_y * td.texture->width + draw->tex_x) * 4];
+			td.pixel = &td.img->pixels[(td.y * td.img->width) * 4];
+			td.i = 0;
+			while (td.i < 4)
+			{
+				td.pixel[td.i] = td.color[td.i];
+				td.i++;
+			}
+		}
+		td.y++;
+	}
+	mlx_image_to_window(cub->mlx, td.img, x, 0);
+}
+
+void	perform_dda(t_ray *ray, t_cub3d *cub)
 {
 	int	hit;
 
@@ -39,7 +70,7 @@ static void	perform_dda(t_ray *ray, t_cub3d *cub)
 	else
 		ray->perp_wall_dist = ray->side_dist_y - ray->delta_dist_y;
 }
-static void	calculate_wall(t_ray *ray, t_draw *draw, t_cub3d *cub)
+void	calculate_wall(t_ray *ray, t_draw *draw, t_cub3d *cub)
 {
 	draw->line_height = (int)(HWINDOW / ray->perp_wall_dist);
 	draw->draw_start = -draw->line_height / 2 + HWINDOW / 2;

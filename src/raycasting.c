@@ -11,7 +11,7 @@
 
 #include "../inc/cub3d.h"
 
-static void	init_ray_plane(t_ray *ray, int x, t_cub3d *cub)
+void	init_ray_plane(t_ray *ray, int x, t_cub3d *cub)
 {
 	double	camera_x;
 
@@ -59,10 +59,11 @@ void	cast_ray(int x, t_cub3d *cub)
 	t_ray	ray;
 	t_draw	draw;
 
-	init_ray(&ray, x, cub);
+	init_ray_plane(&ray, x, cub);
+    init_ray_player(&ray, cub);
 	perform_dda(&ray, cub);
 	calculate_wall(&ray, &draw, cub);
-	// draw_wall; // implement it here:
+	draw_wall(x, &draw, cub);
 }
 
 void	raycaster(t_cub3d *cub)
