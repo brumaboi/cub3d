@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 13:43:10 by marvin            #+#    #+#             */
-/*   Updated: 2025/02/16 13:43:10 by marvin           ###   ########.fr       */
+/*   Updated: 2025/02/26 15:00:00 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,49 +27,6 @@
 
 # define WWINDOW 800
 # define HWINDOW 600
-
-typedef struct s_ray
-{
-	double	dir_x;
-	double	dir_y;
-	int		map_x;
-	int		map_y;
-	double	side_dist_x;
-	double	side_dist_y;
-	double	delta_dist_x;
-	double	delta_dist_y;
-	double	perp_wall_dist;
-	int		step_x;
-	int		step_y;
-	int		side;
-}	t_ray;
-
-typedef struct s_draw
-{
-	int		line_height;
-	int		draw_start;
-	int		draw_end;
-	int		tex_num;
-	double	wall_x;
-	int		tex_x;
-}	t_draw;
-
-typedef struct s_game_data
-{
-	t_pos	    	vectors[3];
-	mlx_t			*mlx;
-	mlx_image_t		*img;
-	mlx_texture_t	*walls[4];
-	t_map   		map_data;
-	double			pos_x;
-	double			pos_y;
-	double			dir_x;
-	double			dir_y;
-	double			plane_x;
-	double			plane_y;
-	mlx_texture_t	*textures[4];
-	t_map		*map;
-}	t_game_data;
 
 typedef struct s_pos
 {
@@ -105,6 +62,32 @@ typedef struct s_player
     double  turn_speed;
 }   t_player;
 
+typedef struct s_ray
+{
+	double	dir_x;
+	double	dir_y;
+	int		map_x;
+	int		map_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	perp_wall_dist;
+	int		step_x;
+	int		step_y;
+	int		side;
+}	t_ray;
+
+typedef struct s_draw
+{
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
+	int		tex_num;
+	double	wall_x;
+	int		tex_x;
+}	t_draw;
+
 typedef struct s_cub3d
 {
     mlx_t       *mlx;
@@ -135,17 +118,16 @@ int check_surroundings(t_map *map);
 int is_walkable(char c);
 int check_player_mobility(t_map *map);
 
+//input
 int check_input(int argc, char **argv);
 int	check_format(char *path, char *format);
 
 //game
 int init_game(t_cub3d *cub);
+void draw_background(t_cub3d *cub);
 
-//raycsting
-void	raycaster(t_cub3d *game_data);
-void	cast_ray(int x, t_cub3d *game_data);
-static void	calculate_wall(t_ray *ray, t_draw *draw, t_cub3d *game_data);
-static void	init_ray(t_ray *ray, int x, t_cub3d *game_data);
-static void	perform_dda(t_ray *ray, t_cub3d *game_data);
+//raycasting
+void	raycaster(t_cub3d *cub);
+void	cast_ray(int x, t_cub3d *cub);
 
-#endif 
+#endif
