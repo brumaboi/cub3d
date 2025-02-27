@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: burakemrezeper <burakemrezeper@student.    +#+  +:+       +#+        */
+/*   By: ezeper <ezeper@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 15:00:00 by marvin            #+#    #+#             */
-/*   Updated: 2025/02/27 15:02:04 by burakemreze      ###   ########.fr       */
+/*   Updated: 2025/02/27 15:31:07 by ezeper           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3D.h"
+#include "../inc/cub3D.h"
 
-static void	init_ray(t_ray *ray, int x, t_game_data *game_data)
+static void	init_ray(t_ray *ray, int x, t_cub3d *game_data)
 {
 	double	camera_x;
 
@@ -40,14 +40,14 @@ static void	init_ray(t_ray *ray, int x, t_game_data *game_data)
 		ray->side_dist_y = (game_data->pos_y - ray->map_y) * ray->delta_dist_y;
 	}
 	else
-	{
+	{1
 		ray->step_y = 1;
 		ray->side_dist_y = (ray->map_y + 1.0 - game_data->pos_y)
 			* ray->delta_dist_y;
 	}
 }
 
-static void	perform_dda(t_ray *ray, t_game_data *game_data)
+static void	perform_dda(t_ray *ray, t_cub3d *game_data)
 {
 	int	hit;
 
@@ -75,7 +75,7 @@ static void	perform_dda(t_ray *ray, t_game_data *game_data)
 		ray->perp_wall_dist = ray->side_dist_y - ray->delta_dist_y;
 }
 
-static void	calculate_wall(t_ray *ray, t_draw *draw, t_game_data *game_data)
+static void	calculate_wall(t_ray *ray, t_draw *draw, t_cub3d *game_data)
 {
 	draw->line_height = (int)(HEIGHT / ray->perp_wall_dist);
 	draw->draw_start = -draw->line_height / 2 + HEIGHT / 2;
@@ -99,7 +99,7 @@ static void	calculate_wall(t_ray *ray, t_draw *draw, t_game_data *game_data)
 		draw->tex_x = TEXTURE_WIDTH - draw->tex_x - 1;
 }
 
-static void	draw_wall(int x, t_ray *ray, t_draw *draw, t_game_data *game_data)
+static void	draw_wall(int x, t_ray *ray, t_draw *draw, t_cub3d *game_data)
 {
 	int				y;
 	mlx_texture_t	*texture;
@@ -121,7 +121,7 @@ static void	draw_wall(int x, t_ray *ray, t_draw *draw, t_game_data *game_data)
 	}
 }
 
-void	cast_ray(int x, t_game_data *game_data)
+void	cast_ray(int x, t_cub3d *game_data)
 {
 	t_ray	ray;
 	t_draw	draw;
@@ -132,7 +132,7 @@ void	cast_ray(int x, t_game_data *game_data)
 	draw_wall(x, &ray, &draw, game_data);
 }
 
-void	raycaster(t_game_data *game_data)
+void	raycaster(t_cub3d *game_data)
 {
 	int	x;
 

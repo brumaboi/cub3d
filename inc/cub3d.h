@@ -138,4 +138,11 @@ int	check_format(char *path, char *format);
 //game
 int init_game(t_cub3d *cub);
 
+//raycasting
+void	raycaster(t_cub3d *game_data);
+void	cast_ray(int x, t_cub3d *game_data);
+static void	calculate_wall(t_ray *ray, t_draw *draw, t_cub3d *game_data);
+static void	init_ray(t_ray *ray, int x, t_cub3d *game_data);
+static void	perform_dda(t_ray *ray, t_cub3d *game_data);
+
 #endif 
