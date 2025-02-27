@@ -11,21 +11,21 @@
 
 #include "../inc/cub3d.h"
 
-void	init_ray_plane(t_ray *ray, int x, t_cub3d *cub)
+void init_ray_plane(t_ray *ray, int x, t_cub3d *cub)
 {
-	double	camera_x;
+    double camera_x;
 
-	camera_x = 2 * x / (double)WWINDOW - 1;
-	ray->dir_x = cub->player.dir.x + cub->player.plane.x * camera_x;
-	ray->dir_y = cub->player.dir.y + cub->player.plane.y * camera_x;
-	if (ray->dir_x == 0)
-		ray->delta_dist_x = 1e30;
-	else
-		ray->delta_dist_x = fabs(1 / ray->dir_x);
-	if (ray->dir_y == 0)
-		ray->delta_dist_y = 1e30;
-	else
-		ray->delta_dist_y = fabs(1 / ray->dir_y);
+    camera_x = 2 * x / (double)WWINDOW - 1;
+    ray->dir_x = cub->player.dir.x + cub->player.plane.x * camera_x;
+    ray->dir_y = cub->player.dir.y + cub->player.plane.y * camera_x;
+    if (ray->dir_x == 0)
+        ray->delta_dist_x = 1e30;
+    else
+        ray->delta_dist_x = fabs(1 / ray->dir_x);
+    if (ray->dir_y == 0)
+        ray->delta_dist_y = 1e30;
+    else
+        ray->delta_dist_y = fabs(1 / ray->dir_y);
 }
 
 void init_ray_player(t_ray *ray, t_cub3d *cub)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: burakemrezeper <burakemrezeper@student.    +#+  +:+       +#+        */
+/*   By: ezeper <ezeper@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 18:40:17 by ezeper            #+#    #+#             */
-/*   Updated: 2025/02/27 19:19:04 by burakemreze      ###   ########.fr       */
+/*   Updated: 2025/02/27 19:35:16 by ezeper           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,3 @@ void	calculate_wall(t_ray *ray, t_draw *draw, t_cub3d *cub)
 		|| (ray->side == 1 && ray->dir_y < 0))
 		draw->tex_x = 64 - draw->tex_x - 1;
 }
-
-// void draw_wall(int i, t_cub3d *cub, t_draw *draw)
-// {
-
-// }
