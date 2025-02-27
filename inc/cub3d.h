@@ -30,26 +30,29 @@
 
 typedef struct s_ray
 {
-    double camera_x;
-    t_pos dir;
-    t_pos side_dist;
-    t_pos delta_dist;
-    double perp_wall_dist;
-    int map_x;
-    int map_y;
-    int step_x;
-    int step_y;
-    int hit;
-    int side;
-    int line_height;
-    int draw_start;
-    int draw_end;
-    int texture_num;
-    double wall_x;
-    int tex_x;
-    double tex_pos;
-    double tex_step;
-} t_ray;
+	double	dir_x;
+	double	dir_y;
+	int		map_x;
+	int		map_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	perp_wall_dist;
+	int		step_x;
+	int		step_y;
+	int		side;
+}	t_ray;
+
+typedef struct s_draw
+{
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
+	int		tex_num;
+	double	wall_x;
+	int		tex_x;
+}	t_draw;
 
 typedef struct s_game_data
 {
@@ -138,7 +141,7 @@ int	check_format(char *path, char *format);
 //game
 int init_game(t_cub3d *cub);
 
-//raycasting
+//raycsting
 void	raycaster(t_cub3d *game_data);
 void	cast_ray(int x, t_cub3d *game_data);
 static void	calculate_wall(t_ray *ray, t_draw *draw, t_cub3d *game_data);
