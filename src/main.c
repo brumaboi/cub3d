@@ -41,7 +41,6 @@ void free_game(t_cub3d *cub)
     free(cub->map.east_texture);
     mlx_terminate(cub->mlx); // and terminate the mlx
 }
---
 
 void   key_hook(mlx_key_data_t keydata, void *param)
 {
