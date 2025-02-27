@@ -12,6 +12,37 @@
 
 #include "../inc/cub3d.h"
 
+void free_game(t_cub3d *cub)
+{
+    int i;
+
+    i = 0;
+    while (i < 4)
+    { 
+        if (cub->walls[i])
+           mlx_delete_texture(cub->walls[i]);           // Free textures
+        i++;
+    }
+    if (cub->map.map)
+    {
+        i = 0;
+        while (i < cub->map.rows)
+        {
+            free(cub->map.map[i]);
+            i++;                       // Free map resources
+            if (cub->map.map)
+                free(cub->map.map);
+        }
+        free(cub->map.map);
+    }
+    free(cub->map.nord_texture);
+    free(cub->map.south_texture); // Free texture paths
+    free(cub->map.west_texture);
+    free(cub->map.east_texture);
+    mlx_terminate(cub->mlx); // and terminate the mlx
+}
+--
+
 void   key_hook(mlx_key_data_t keydata, void *param)
 {
     t_cub3d *cub;
