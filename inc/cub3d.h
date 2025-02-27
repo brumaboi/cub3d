@@ -28,6 +28,46 @@
 # define WWINDOW 800
 # define HWINDOW 600
 
+typedef struct s_ray
+{
+    double camera_x;
+    t_pos dir;
+    t_pos side_dist;
+    t_pos delta_dist;
+    double perp_wall_dist;
+    int map_x;
+    int map_y;
+    int step_x;
+    int step_y;
+    int hit;
+    int side;
+    int line_height;
+    int draw_start;
+    int draw_end;
+    int texture_num;
+    double wall_x;
+    int tex_x;
+    double tex_pos;
+    double tex_step;
+} t_ray;
+
+typedef struct s_game_data
+{
+	t_pos	    	vectors[3];
+	mlx_t			*mlx;
+	mlx_image_t		*img;
+	mlx_texture_t	*walls[4];
+	t_map   		map_data;
+	double			pos_x;
+	double			pos_y;
+	double			dir_x;
+	double			dir_y;
+	double			plane_x;
+	double			plane_y;
+	mlx_texture_t	*textures[4];
+	t_map		*map;
+}	t_game_data;
+
 typedef struct s_pos
 {
     double x;
@@ -98,4 +138,4 @@ int	check_format(char *path, char *format);
 //game
 int init_game(t_cub3d *cub);
 
-#endif
+#endif 
