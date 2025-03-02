@@ -54,11 +54,25 @@ void   key_hook(mlx_key_data_t keydata, void *param)
     return ;
 }
 
+void handle_input(t_cub3d *cub)
+{
+    cub->player.input_forward      = mlx_is_key_down(cub->mlx, MLX_KEY_W);
+    cub->player.input_backward     = mlx_is_key_down(cub->mlx, MLX_KEY_S);
+    cub->player.input_strafe_left  = mlx_is_key_down(cub->mlx, MLX_KEY_A);
+    cub->player.input_strafe_right = mlx_is_key_down(cub->mlx, MLX_KEY_D);
+    cub->player.input_rotate_left  = mlx_is_key_down(cub->mlx, MLX_KEY_LEFT);
+    cub->player.input_rotate_right = mlx_is_key_down(cub->mlx, MLX_KEY_RIGHT);
+}
+
 void game_loop(void *param)
 {
     t_cub3d *cub;
 
     cub = (t_cub3d *)param;
+
+    handle_input(cub);
+    // update_player(cub);
+    // clear_screen(cub);
     raycaster(cub);
 }
 

@@ -60,6 +60,12 @@ typedef struct s_player
     double  rotation_angle;
     double  walk_speed;
     double  turn_speed;
+    int     input_forward;
+    int     input_backward;
+    int     input_strafe_left;
+    int     input_strafe_right;
+    int     input_rotate_left;
+    int     input_rotate_right;
 }   t_player;
 
 typedef struct s_tex_draw
@@ -110,6 +116,7 @@ typedef struct s_cub3d
     mlx_image_t *bg_img;
     t_map       map;
     t_player    player;
+    mlx_image_t *frame_img;
 }   t_cub3d;
 
 //map
@@ -147,6 +154,7 @@ void	init_ray_player(t_ray *ray, t_cub3d *cub);
 void    perform_dda(t_ray *ray, t_cub3d *cub);
 void    calculate_wall(t_ray *ray, t_draw *draw, t_cub3d *cub);  
 void	draw_wall(int x, t_draw *draw, t_cub3d *cub);
+void clear_screen(t_cub3d *cub);
 
 //load_textures
 int load_textur(t_cub3d *cub);

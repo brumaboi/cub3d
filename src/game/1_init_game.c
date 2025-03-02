@@ -98,6 +98,8 @@ int init_player(t_cub3d *cub)
         printf("Error: Invalid player direction\n");
         return (1);
     }
+    cub->player.walk_speed = 0.05;
+    cub->player.turn_speed = 0.05;
     return (0);
 }
 
