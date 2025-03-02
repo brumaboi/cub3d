@@ -14,6 +14,9 @@
 
 int load_walls(t_cub3d *cub)
 {
+    int i;
+
+    i = 0;
     cub->walls[0] = mlx_load_png(cub->map.nord_texture);
     if (!cub->walls[0])
         return (printf("Error: Failed to load texture: %s\n", cub->map.nord_texture), 1);
@@ -26,10 +29,12 @@ int load_walls(t_cub3d *cub)
     cub->walls[3] = mlx_load_png(cub->map.east_texture);
     if (!cub->walls[3])
         return (printf("Error: Failed to load texture: %s\n", cub->map.east_texture), 1);
-    printf("DEBUG: Loaded north texture from: %s (ptr: %p)\n", cub->map.nord_texture, cub->walls[0]);
-    printf("DEBUG: Loaded south texture from: %s (ptr: %p)\n", cub->map.south_texture, cub->walls[1]);
-    printf("DEBUG: Loaded west texture from: %s (ptr: %p)\n", cub->map.west_texture, cub->walls[2]);
-    printf("DEBUG: Loaded east texture from: %s (ptr: %p)\n", cub->map.east_texture, cub->walls[3]);
+    while (i < 4)
+    {
+        if (!cub->walls[i])
+            return (1);
+        i++;
+    }
     return (0);
 }
 
