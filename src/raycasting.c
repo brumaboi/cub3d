@@ -71,10 +71,11 @@ void	raycaster(t_cub3d *cub)
 	int	x;
 
     x = 0;
-	draw_background(cub);
+	clear_screen(cub);
 	while (x < WWINDOW)
 	{
 		cast_ray(x, cub);
 		x++;
 	}
+	mlx_image_to_window(cub->mlx, cub->bg_img, 0, 0);
 }

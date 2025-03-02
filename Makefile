@@ -37,7 +37,8 @@ SRC 			= $(SRC_DIR)main.c \
 				  $(SRC_DIR)map/4_validation/3_surroundings.c \
 				  $(SRC_DIR)map/4_validation/4_player_mobility.c \
 				  $(SRC_DIR)load_textures.c \
-				  $(SRC_DIR)game/1_init_game.c 
+				  $(SRC_DIR)game/1_init_game.c \
+				  $(SRC_DIR)game/2_init_player.c
 				  
 OBJ = $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRC))
 

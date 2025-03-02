@@ -54,6 +54,35 @@ void   key_hook(mlx_key_data_t keydata, void *param)
     return ;
 }
 
+void clear_screen(t_cub3d *cub)
+{
+    int x;
+    int y;
+
+    if (cub->bg_img)
+        mlx_delete_image(cub->mlx, cub->bg_img);
+    cub->bg_img = mlx_new_image(cub->mlx, WWINDOW, HWINDOW);
+    if (!cub->bg_img)
+    {
+        printf("Error: Failed to create new image\n");
+        return;
+    }
+    y = 0;
+    while (y < HWINDOW)
+    {
+        x = 0;
+        while (x < WWINDOW)
+        {
+            if (y < HWINDOW / 2)
+                mlx_put_pixel(cub->bg_img, x, y, cub->map.ceiling_color);
+            else
+                mlx_put_pixel(cub->bg_img, x, y, cub->map.floor_color);
+            x++;
+        }
+        y++;
+    }
+}
+
 void handle_input(t_cub3d *cub)
 {
     cub->player.input_forward      = mlx_is_key_down(cub->mlx, MLX_KEY_W);
@@ -72,7 +101,7 @@ void game_loop(void *param)
 
     handle_input(cub);
     // update_player(cub);
-    // clear_screen(cub);
+    clear_screen(cub);
     raycaster(cub);
 }
 

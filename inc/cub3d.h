@@ -155,6 +155,7 @@ void    perform_dda(t_ray *ray, t_cub3d *cub);
 void    calculate_wall(t_ray *ray, t_draw *draw, t_cub3d *cub);  
 void	draw_wall(int x, t_draw *draw, t_cub3d *cub);
 void clear_screen(t_cub3d *cub);
+int init_player(t_cub3d *cub);
 
 //load_textures
 int load_textur(t_cub3d *cub);
