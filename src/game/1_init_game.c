@@ -66,48 +66,6 @@ void draw_background(t_cub3d *cub)
     mlx_image_to_window(cub->mlx, cub->bg_img, 0, 0);
 }
 
-int init_player(t_cub3d *cub)
-{
-    cub->player.pos.x = cub->map.player_pos.x;
-    cub->player.pos.y = cub->map.player_pos.y;
-    if(cub->map.player == 0)
-    {
-        cub->player.dir.x = 0;
-        cub->player.dir.y = -1;
-        cub->player.plane.x = 0.66;
-        cub->player.plane.y = 0;
-    }
-    else if(cub->map.player == 1)
-    {
-        cub->player.dir.x = 0;
-        cub->player.dir.y = 1;
-        cub->player.plane.x = -0.66;
-        cub->player.plane.y = 0;
-    }
-    else if(cub->map.player == 2)
-    {
-        cub->player.dir.x = -1;
-        cub->player.dir.y = 0;
-        cub->player.plane.x = 0;
-        cub->player.plane.y = -0.66;
-    }
-    else if(cub->map.player == 3)
-    {
-        cub->player.dir.x = 1;
-        cub->player.dir.y = 0;
-        cub->player.plane.x = 0;
-        cub->player.plane.y = 0.66;
-    }
-    else
-    {
-        printf("Error: Invalid player direction\n");
-        return (1);
-    }
-    cub->player.walk_speed = 0.05;
-    cub->player.turn_speed = 0.05;
-    return (0);
-}
-
 int init_game(t_cub3d *cub)
 {
     cub->mlx = mlx_init(WWINDOW, HWINDOW, "Cub3D", false);
