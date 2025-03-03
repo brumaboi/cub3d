@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <math.h>
+# include <string.h>
 # include "../libft/inc/libft.h"
 # include "../libft/inc/get_next_line.h"
 # include "../MLX42/include/MLX42/MLX42.h"

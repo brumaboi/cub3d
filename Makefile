@@ -12,7 +12,7 @@
 
 NAME			=	cub3d
 CC				=	cc
-CFLAGS			=	-Wall -Wextra -Werror
+CFLAGS			=	-Wall -Wextra -Werror -g
 RM				=	rm -f
 AR				=	ar rcs
 
@@ -36,7 +36,6 @@ SRC 			= $(SRC_DIR)main.c \
 				  $(SRC_DIR)map/4_validation/2_map_elements.c \
 				  $(SRC_DIR)map/4_validation/3_surroundings.c \
 				  $(SRC_DIR)map/4_validation/4_player_mobility.c \
-				  $(SRC_DIR)load_textures.c \
 				  $(SRC_DIR)game/1_init_game.c \
 				  $(SRC_DIR)game/2_init_player.c
 				  

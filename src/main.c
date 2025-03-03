@@ -122,13 +122,30 @@ void update_forward(t_cub3d *cub, double move_speed)
     }
 }
 
+void update_backward(t_cub3d *cub, double move_speed)
+{
+    double new_x;
+    double new_y;
+
+    if (cub->player.input_backward)
+    {
+        new_x = cub->player.pos.x - cub->player.dir.x * move_speed;
+        new_y = cub->player.pos.y - cub->player.dir.y * move_speed;
+        if (check_hit(cub, new_x, new_y))
+        {
+            cub->player.pos.x = new_x;
+            cub->player.pos.y = new_y;
+        }
+    }
+}
+
 void update_player(t_cub3d *cub)
 {
     double move_speed;
 
     move_speed = cub->player.walk_speed;
     update_forward(cub, move_speed);
-    // update_backward(cub, move_speed);
+    update_backward(cub, move_speed);
     // update_strafe_left(cub, move_speed);
     // update_strafe_right(cub, move_speed);
     // update_rotate_left(cub);
