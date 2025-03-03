@@ -12,7 +12,7 @@
 
 NAME			=	cub3d
 CC				=	cc
-CFLAGS			=	-Wall -Wextra -Werror -g
+CFLAGS			=	-Wall -Wextra -Werror
 RM				=	rm -f
 AR				=	ar rcs
 
@@ -37,7 +37,9 @@ SRC 			= $(SRC_DIR)main.c \
 				  $(SRC_DIR)map/4_validation/3_surroundings.c \
 				  $(SRC_DIR)map/4_validation/4_player_mobility.c \
 				  $(SRC_DIR)game/1_init_game.c \
-				  $(SRC_DIR)game/2_init_player.c
+				  $(SRC_DIR)game/2_init_player.c \
+				  $(SRC_DIR)game/3_start_game.c \
+				  $(SRC_DIR)game/4_update_pos.c
 				  
 OBJ = $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRC))
 

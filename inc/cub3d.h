@@ -18,7 +18,6 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <math.h>
-# include <string.h>
 # include "../libft/inc/libft.h"
 # include "../libft/inc/get_next_line.h"
 # include "../MLX42/include/MLX42/MLX42.h"
@@ -157,8 +156,7 @@ void    calculate_wall(t_ray *ray, t_draw *draw, t_cub3d *cub);
 void	draw_wall(int x, t_draw *draw, t_cub3d *cub);
 void clear_screen(t_cub3d *cub);
 int init_player(t_cub3d *cub);
-
-//load_textures
-int load_textur(t_cub3d *cub);
+void update_player(t_cub3d *cub);
+int start_game(t_cub3d *cub);
 
 #endif
