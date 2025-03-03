@@ -89,8 +89,50 @@ void handle_input(t_cub3d *cub)
     cub->player.input_backward     = mlx_is_key_down(cub->mlx, MLX_KEY_S);
     cub->player.input_strafe_left  = mlx_is_key_down(cub->mlx, MLX_KEY_A);
     cub->player.input_strafe_right = mlx_is_key_down(cub->mlx, MLX_KEY_D);
-    cub->player.input_rotate_left  = mlx_is_key_down(cub->mlx, MLX_KEY_LEFT);
-    cub->player.input_rotate_right = mlx_is_key_down(cub->mlx, MLX_KEY_RIGHT);
+    cub->player.input_rotate_left  = mlx_is_key_down(cub->mlx, MLX_KEY_RIGHT);
+    cub->player.input_rotate_right = mlx_is_key_down(cub->mlx, MLX_KEY_LEFT);
+}
+
+int check_hit(t_cub3d *cub, double x, double y)
+{
+    int map_x;
+    int map_y;
+    
+    map_x = (int)x;
+    map_y = (int)y;
+    if (map_y < 0 || map_y >= cub->map.rows || map_x < 0 || map_x >= cub->map.columns)
+        return (0);
+    return (is_walkable(cub->map.map[map_y][map_x]));
+}
+
+void update_forward(t_cub3d *cub, double move_speed)
+{
+    double new_x;
+    double new_y;
+
+    if (cub->player.input_forward)
+    {
+        new_x = cub->player.pos.x + cub->player.dir.x * move_speed;
+        new_y = cub->player.pos.y + cub->player.dir.y * move_speed;
+        if (check_hit(cub, new_x, new_y))
+        {
+            cub->player.pos.x = new_x;
+            cub->player.pos.y = new_y;
+        }
+    }
+}
+
+void update_player(t_cub3d *cub)
+{
+    double move_speed;
+
+    move_speed = cub->player.walk_speed;
+    update_forward(cub, move_speed);
+    // update_backward(cub, move_speed);
+    // update_strafe_left(cub, move_speed);
+    // update_strafe_right(cub, move_speed);
+    // update_rotate_left(cub);
+    // update_rotate_right(cub);
 }
 
 void game_loop(void *param)
@@ -100,7 +142,7 @@ void game_loop(void *param)
     cub = (t_cub3d *)param;
 
     handle_input(cub);
-    // update_player(cub);
+    update_player(cub);
     clear_screen(cub);
     raycaster(cub);
 }
