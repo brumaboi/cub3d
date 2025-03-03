@@ -3,44 +3,49 @@
 /*                                                        :::      ::::::::   */
 /*   raycast_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ezeper <ezeper@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 18:40:17 by ezeper            #+#    #+#             */
-/*   Updated: 2025/02/27 19:35:16 by ezeper           ###   ########.fr       */
+/*   Updated: 2025/03/03 10:37:54 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-void	draw_wall(int x, t_draw *draw, t_cub3d *cub)
+int get_color(mlx_texture_t *texture, int width, int tex_y, int tex_x)
 {
-	t_tex_draw	td;
+	int color;
+	int tex_index;
+	unsigned char b;
+	unsigned char g;
+	unsigned char r;
 
-	td.texture = cub->walls[draw->tex_num];
-	td.step = 1.0 * 64 / draw->line_height;
-	td.tex_pos = (draw->draw_start - HWINDOW / 2 + draw->line_height / 2) * td.step;
-	td.img = mlx_new_image(cub->mlx, 1, HWINDOW);
-	if (!td.img)
-		return ;
-	td.y = 0;
-	while (td.y < HWINDOW)
-	{
-		if (td.y >= draw->draw_start && td.y < draw->draw_end)
-		{
-			td.tex_y = (int)td.tex_pos & 63;
-			td.tex_pos += td.step;
-			td.color = &td.texture->pixels[(td.tex_y * td.texture->width + draw->tex_x) * 4];
-			td.pixel = &td.img->pixels[(td.y * td.img->width) * 4];
-			td.i = 0;
-			while (td.i < 4)
-			{
-				td.pixel[td.i] = td.color[td.i];
-				td.i++;
-			}
-		}
-		td.y++;
-	}
-	mlx_image_to_window(cub->mlx, td.img, x, 0);
+	tex_index = (tex_y * width + tex_x) * 4;
+	b = texture->pixels[tex_index + 0];
+	g = texture->pixels[tex_index + 1];
+	r = texture->pixels[tex_index + 2];
+	color = (r << 16) + (g << 8) + b;
+	return (color);
+}
+
+void draw_wall(int x, t_draw *draw, t_cub3d *cub)
+{
+    t_tex_draw  td;
+    int         y;
+	int 	   color;
+
+    td.texture = cub->walls[draw->tex_num];
+    td.step = 1.0 * 64 / draw->line_height;
+    td.tex_pos = (draw->draw_start - HWINDOW / 2 + draw->line_height / 2) * td.step;
+	y = draw->draw_start;
+    while (y < draw->draw_end)
+    {
+        td.tex_y = (int)td.tex_pos & 63;
+        td.tex_pos += td.step;
+		color = get_color(td.texture, 64, td.tex_y, draw->tex_x);
+        mlx_put_pixel(cub->bg_img, x, y, color);
+		y++;
+    }
 }
 
 void	perform_dda(t_ray *ray, t_cub3d *cub)
@@ -70,6 +75,7 @@ void	perform_dda(t_ray *ray, t_cub3d *cub)
 	else
 		ray->perp_wall_dist = ray->side_dist_y - ray->delta_dist_y;
 }
+
 void	calculate_wall(t_ray *ray, t_draw *draw, t_cub3d *cub)
 {
 	draw->line_height = (int)(HWINDOW / ray->perp_wall_dist);
