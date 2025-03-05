@@ -159,4 +159,9 @@ int init_player(t_cub3d *cub);
 void update_player(t_cub3d *cub);
 int start_game(t_cub3d *cub);
 
+void	update_right(t_cub3d *cub, double move_speed);
+void	update_left(t_cub3d *cub, double move_speed);
+void	update_backward(t_cub3d *cub, double move_speed);
+void	update_forward(t_cub3d *cub, double move_speed);
+
 #endif

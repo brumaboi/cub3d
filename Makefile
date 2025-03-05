@@ -39,7 +39,8 @@ SRC 			= $(SRC_DIR)main.c \
 				  $(SRC_DIR)game/1_init_game.c \
 				  $(SRC_DIR)game/2_init_player.c \
 				  $(SRC_DIR)game/3_start_game.c \
-				  $(SRC_DIR)game/4_update_pos.c
+				  $(SRC_DIR)game/4_update_pos.c \
+				  $(SRC_DIR)game/5_update_pos2.c
 				  
 OBJ = $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRC))
 
