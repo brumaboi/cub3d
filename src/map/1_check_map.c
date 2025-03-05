@@ -12,25 +12,25 @@
 
 #include "../../inc/cub3d.h"
 
-int check_map(char *path, t_map *map)
+int	check_map(char *path, t_map *map)
 {
-    int fd;
-    char *line;
+	int		fd;
+	char	*line;
 
-    ft_bzero(map, sizeof(t_map));
-    fd = open(path, O_RDONLY);
-    if (fd < 0)
-        return (printf("Error: Could not open file\n"), 1);
-    line = get_next_line(fd);
-    while (line != 0)
-    {
-        if (!parse_line(line, map))
-            return (1);
-        free(line);
-        line = get_next_line(fd);
-    }
-    close(fd);
-    if (!validate_map(map)) //then we need to check the new_map for: invalid characters, map rules, player position and view direction
-        return (1);
-    return (0);
+	ft_bzero(map, sizeof(t_map));
+	fd = open(path, O_RDONLY);
+	if (fd < 0)
+		return (printf("Error: Could not open file\n"), 1);
+	line = get_next_line(fd);
+	while (line != 0)
+	{
+		if (!parse_line(line, map))
+			return (1);
+		free(line);
+		line = get_next_line(fd);
+	}
+	close(fd);
+	if (!validate_map(map))
+		return (1);
+	return (0);
 }
