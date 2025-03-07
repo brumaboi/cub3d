@@ -25,13 +25,13 @@ int	check_format(char *path, char *format)
 	return (0);
 }
 
-int check_input(int argc, char **argv)
+int	check_input(int argc, char **argv)
 {
-    if (argc != 2)
-        return(printf("Error: Invalid number of arguments\n"), 1);
-    if (!check_format(argv[1], ".cub"))
-        return(printf("Error: Invalid file format\n"), 1);
-    if (access(argv[1], F_OK) != 0)
-        return(printf("Error: File does not exist\n"), 1);
-    return (0);
+	if (argc != 2)
+		return (printf("Error: Invalid number of arguments\n"), 1);
+	if (!check_format(argv[1], ".cub"))
+		return (printf("Error: Invalid file format\n"), 1);
+	if (access(argv[1], F_OK) != 0)
+		return (printf("Error: File does not exist\n"), 1);
+	return (0);
 }

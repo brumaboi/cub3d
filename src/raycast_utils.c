@@ -6,19 +6,19 @@
 /*   By: sbruma <sbruma@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 18:40:17 by ezeper            #+#    #+#             */
-/*   Updated: 2025/03/03 14:03:02 by sbruma           ###   ########.fr       */
+/*   Updated: 2025/03/07 12:42:44 by sbruma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-int get_color(mlx_texture_t *texture, int width, int tex_y, int tex_x)
+int	get_color(mlx_texture_t *texture, int width, int tex_y, int tex_x)
 {
-	int color;
-	int tex_index;
-	unsigned char b;
-	unsigned char g;
-	unsigned char r;
+	int				color;
+	int				tex_index;
+	unsigned char	b;
+	unsigned char	g;
+	unsigned char	r;
 
 	tex_index = (tex_y * width + tex_x) * 4;
 	b = texture->pixels[tex_index + 0];
@@ -28,24 +28,25 @@ int get_color(mlx_texture_t *texture, int width, int tex_y, int tex_x)
 	return (color);
 }
 
-void draw_wall(int x, t_draw *draw, t_cub3d *cub)
+void	draw_wall(int x, t_draw *draw, t_cub3d *cub)
 {
-    t_tex_draw  td;
-    int         y;
-	int 	   color;
+	t_tex_draw	td;
+	int			y;
+	int			color;
 
-    td.texture = cub->walls[draw->tex_num];
-    td.step = 1.0 * 64 / draw->line_height;
-    td.tex_pos = (draw->draw_start - HWINDOW / 2 + draw->line_height / 2) * td.step;
+	td.texture = cub->walls[draw->tex_num];
+	td.step = 1.0 * 64 / draw->line_height;
+	td.tex_pos = (draw->draw_start - HWINDOW / 2
+			+ draw->line_height / 2) * td.step;
 	y = draw->draw_start;
-    while (y < draw->draw_end)
-    {
-        td.tex_y = (int)td.tex_pos & 63;
-        td.tex_pos += td.step;
+	while (y < draw->draw_end)
+	{
+		td.tex_y = (int)td.tex_pos & 63;
+		td.tex_pos += td.step;
 		color = get_color(td.texture, 64, td.tex_y, draw->tex_x);
-        mlx_put_pixel(cub->bg_img, x, y, color);
+		mlx_put_pixel(cub->bg_img, x, y, color);
 		y++;
-    }
+	}
 }
 
 void	perform_dda(t_ray *ray, t_cub3d *cub)
@@ -88,16 +89,16 @@ void	calculate_wall(t_ray *ray, t_draw *draw, t_cub3d *cub)
 	if (ray->side == 0)
 	{
 		if (ray->step_x < 0)
-			draw->tex_num = 2;  // WEST
+			draw->tex_num = 2;
 		else
-			draw->tex_num = 3;  // EAST
+			draw->tex_num = 3;
 	}
 	else
 	{
 		if (ray->step_y < 0)
-			draw->tex_num = 0;  // NORTH
+			draw->tex_num = 0;
 		else
-			draw->tex_num = 1;  // SOUTH
+			draw->tex_num = 1;
 	}
 	if (ray->side == 0)
 		draw->wall_x = cub->player.pos.y + ray->perp_wall_dist * ray->dir_y;
