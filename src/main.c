@@ -12,39 +12,11 @@
 
 #include "../inc/cub3d.h"
 
-void	free_game(t_cub3d *cub)
-{
-	int	i;
-
-	i = 0;
-	while (i < 4)
-	{
-		if (cub->walls[i])
-			mlx_delete_texture(cub->walls[i++]);
-	}
-	if (cub->map.map)
-	{
-		i = 0;
-		while (i < cub->map.rows)
-		{
-			free(cub->map.map[i]);
-			i++;
-			if (cub->map.map)
-				free(cub->map.map);
-		}
-		free(cub->map.map);
-	}
-	free(cub->map.nord_texture);
-	free(cub->map.south_texture);
-	free(cub->map.west_texture);
-	free(cub->map.east_texture);
-	mlx_terminate(cub->mlx);
-}
-
 int	main(int argc, char **argv)
 {
 	t_cub3d	cub;
 
+	print_start();
 	ft_bzero(&cub, sizeof(t_cub3d));
 	if (check_input(argc, argv) != 0)
 		return (1);
@@ -55,5 +27,5 @@ int	main(int argc, char **argv)
 	if (start_game(&cub) != 0)
 		return (1);
 	// free_game(&cub);
-	return (0);
+	return (print_end(), 0);
 }

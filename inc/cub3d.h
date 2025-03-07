@@ -163,4 +163,8 @@ void	update_left(t_cub3d *cub, double move_speed);
 void	update_backward(t_cub3d *cub, double move_speed);
 void	update_forward(t_cub3d *cub, double move_speed);
 
+void	free_game(t_cub3d *cub);
+void	print_start(void);
+void	print_end(void);
+
 #endif
