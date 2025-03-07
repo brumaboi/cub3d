@@ -6,7 +6,7 @@
 /*   By: sbruma <sbruma@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 18:40:17 by ezeper            #+#    #+#             */
-/*   Updated: 2025/03/07 12:42:44 by sbruma           ###   ########.fr       */
+/*   Updated: 2025/03/07 12:57:28 by sbruma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,14 @@ void	perform_dda(t_ray *ray, t_cub3d *cub)
 		ray->perp_wall_dist = ray->side_dist_y - ray->delta_dist_y;
 }
 
+int	norm_return(t_ray *ray)
+{
+	if (ray->step_y < 0)
+		return (0);
+	else
+		return (1);
+}
+
 void	calculate_wall(t_ray *ray, t_draw *draw, t_cub3d *cub)
 {
 	draw->line_height = (int)(HWINDOW / ray->perp_wall_dist);
@@ -94,12 +102,7 @@ void	calculate_wall(t_ray *ray, t_draw *draw, t_cub3d *cub)
 			draw->tex_num = 3;
 	}
 	else
-	{
-		if (ray->step_y < 0)
-			draw->tex_num = 0;
-		else
-			draw->tex_num = 1;
-	}
+		draw->tex_num = norm_return(ray);
 	if (ray->side == 0)
 		draw->wall_x = cub->player.pos.y + ray->perp_wall_dist * ray->dir_y;
 	else

@@ -6,7 +6,7 @@
 /*   By: sbruma <sbruma@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 16:05:01 by sbruma            #+#    #+#             */
-/*   Updated: 2025/03/05 13:49:58 by sbruma           ###   ########.fr       */
+/*   Updated: 2025/03/07 13:42:35 by sbruma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,27 @@ void	save_player_data(t_map *map, int elem, int i, int j)
 		map->player = 3;
 }
 
+int	process_element(t_map *map, int i, int j, int *player_count)
+{
+	int	elem;
+
+	elem = map->map[i][j];
+	if (elem != WALL && elem != FLOOR && elem != ' '
+		&& elem != 'N' && elem != 'S' && elem != 'E' && elem != 'W')
+		return (printf("Error: Invalid element found\n"), 1);
+	if (elem == 'N' || elem == 'S' || elem == 'E' || elem == 'W')
+	{
+		(*player_count)++;
+		save_player_data(map, elem, i, j);
+	}
+	return (0);
+}
+
 int	check_elements(t_map *map)
 {
 	int	i;
 	int	j;
 	int	player_count;
-	int	elem;
 
 	player_count = 0;
 	i = 0;
@@ -79,15 +94,8 @@ int	check_elements(t_map *map)
 		j = 0;
 		while (map->map[i][j] != '\0')
 		{
-			elem = map->map[i][j];
-			if (elem != WALL && elem != FLOOR && elem != ' '
-				&& elem != 'N' && elem != 'S' && elem != 'E' && elem != 'W')
-				return (printf("Error: Invalid element found\n"), 1);
-			if (elem == 'N' || elem == 'S' || elem == 'E' || elem == 'W')
-			{
-				player_count++;
-				save_player_data(map, elem, i, j);
-			}
+			if (process_element(map, i, j, &player_count))
+				return (1);
 			j++;
 		}
 		i++;

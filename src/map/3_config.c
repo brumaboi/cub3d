@@ -62,21 +62,12 @@ int	is_color(char *line)
 	return (0);
 }
 
-void	parse_color(char *line, t_map *map)
+void	right_color(char *line, char **rgb, t_map *map)
 {
-	char	**rgb;
-	char	*color;
 	int		r;
 	int		g;
 	int		b;
 
-	color = ft_strtrim(line + 1, " \t\n");
-	if (!color)
-		return ;
-	rgb = ft_split(color, ',');
-	free(color);
-	if (!*rgb)
-		return ;
 	if (!rgb[0] || !rgb[1] || !rgb[2] || rgb[3] != NULL)
 	{
 		printf("Error: Invalid color\n");
@@ -97,4 +88,19 @@ void	parse_color(char *line, t_map *map)
 		map->floor_color = (r << 16) + (g << 8) + b;
 	else
 		map->ceiling_color = (r << 16) + (g << 8) + b;
+}
+
+void	parse_color(char *line, t_map *map)
+{
+	char	**rgb;
+	char	*color;
+
+	color = ft_strtrim(line + 1, " \t\n");
+	if (!color)
+		return ;
+	rgb = ft_split(color, ',');
+	free(color);
+	if (!*rgb)
+		return ;
+	right_color(line, rgb, map);
 }

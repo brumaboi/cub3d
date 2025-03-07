@@ -6,7 +6,7 @@
 /*   By: sbruma <sbruma@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 16:05:32 by sbruma            #+#    #+#             */
-/*   Updated: 2025/03/05 13:51:09 by sbruma           ###   ########.fr       */
+/*   Updated: 2025/03/07 13:46:01 by sbruma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	check_touch(t_map *map, int i, int j)
 		while (dj <= 1)
 		{
 			ni = i + di;
-			nj = j + dj;
+			nj = j + dj++;
 			if (ni < 0 || ni >= map->rows)
 				return (printf("Error: Walkable touches the void\n"), 1);
 			neighbor_len = ft_strlen(map->map[ni]);
@@ -40,7 +40,6 @@ static int	check_touch(t_map *map, int i, int j)
 				return (printf("Error: Walkable touches the void\n"), 1);
 			if (map->map[ni][nj] == ' ')
 				return (printf("Error: Walkable touches the void\n"), 1);
-			dj++;
 		}
 		di++;
 	}
