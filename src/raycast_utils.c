@@ -3,29 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   raycast_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbruma <sbruma@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ezeper <ezeper@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 18:40:17 by ezeper            #+#    #+#             */
-/*   Updated: 2025/03/07 12:57:28 by sbruma           ###   ########.fr       */
+/*   Updated: 2025/03/08 20:41:47 by ezeper           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-int	get_color(mlx_texture_t *texture, int width, int tex_y, int tex_x)
+int get_color(mlx_texture_t *texture, int width, int tex_y, int tex_x)
 {
-	int				color;
-	int				tex_index;
-	unsigned char	b;
-	unsigned char	g;
-	unsigned char	r;
-
-	tex_index = (tex_y * width + tex_x) * 4;
-	b = texture->pixels[tex_index + 0];
-	g = texture->pixels[tex_index + 1];
-	r = texture->pixels[tex_index + 2];
-	color = (r << 16) + (g << 8) + b;
-	return (color);
+    int color;
+    int tex_index;
+    
+    tex_index = (tex_y * width + tex_x) * 4;
+    
+    color = (texture->pixels[tex_index + 0] << 24) | 
+            (texture->pixels[tex_index + 1] << 16) | 
+            (texture->pixels[tex_index + 2] << 8) | 
+            (texture->pixels[tex_index + 3]);
+            
+    return (color);
 }
 
 void	draw_wall(int x, t_draw *draw, t_cub3d *cub)
