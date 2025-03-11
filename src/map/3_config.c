@@ -83,11 +83,11 @@ void	right_color(char *line, char **rgb, t_map *map)
 		free(*rgb);
 		return ;
 	}
-	free(*rgb);
-	if (ft_strncmp(line, "F ", 2) == 0)
-		map->floor_color = (r << 16) + (g << 8) + b;
-	else
-		map->ceiling_color = (r << 16) + (g << 8) + b;
+	free(rgb);
+    if (ft_strncmp(line, "F ", 2) == 0)
+        map->floor_color = (r << 24) | (g << 16) | (b << 8) | 0xFF;  // RGBA format
+    else
+        map->ceiling_color = (r << 24) | (g << 16) | (b << 8) | 0xFF;  // RGBA format
 }
 
 void	parse_color(char *line, t_map *map)
