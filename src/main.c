@@ -26,6 +26,5 @@ int	main(int argc, char **argv)
 		return (1);
 	if (start_game(&cub) != 0)
 		return (1);
-	// free_game(&cub);
 	return (print_end(), 0);
 }

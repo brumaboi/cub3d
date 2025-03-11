@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   3_start_game.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ezeper <ezeper@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:31:25 by sbruma            #+#    #+#             */
-/*   Updated: 2025/03/11 01:00:07 by ezeper           ###   ########.fr       */
+/*   Updated: 2025/03/11 14:13:48 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 
 void	handle_input(t_cub3d *cub)
 {
-	cub->player.input_forward = mlx_is_key_down(cub->mlx, MLX_KEY_UP);
-	cub->player.input_backward = mlx_is_key_down(cub->mlx, MLX_KEY_DOWN);
+	cub->player.input_forward = mlx_is_key_down(cub->mlx, MLX_KEY_W);
+	cub->player.input_backward = mlx_is_key_down(cub->mlx, MLX_KEY_S);
 	cub->player.input_strafe_left = mlx_is_key_down(cub->mlx, MLX_KEY_A);
 	cub->player.input_strafe_right = mlx_is_key_down(cub->mlx, MLX_KEY_D);
 	cub->player.input_rotate_left = mlx_is_key_down(cub->mlx, MLX_KEY_RIGHT);
