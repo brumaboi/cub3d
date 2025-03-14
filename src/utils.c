@@ -6,7 +6,7 @@
 /*   By: sbruma <sbruma@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 14:05:03 by sbruma            #+#    #+#             */
-/*   Updated: 2025/03/07 14:14:29 by sbruma           ###   ########.fr       */
+/*   Updated: 2025/03/14 19:03:11 by sbruma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,10 @@ void	print_start(void)
 	printf("\033[0m");
 }
 
-void	print_end(void)
+void	print_end(int clear)
 {
-	printf("\033[H\033[J");
+	if (clear == 0)
+		printf("\033[H\033[J");
 	printf("\n");
 	printf("\033[91m");
 	printf(" ██████╗  █████╗ ███╗   ███╗███████╗   ██████╗ ███████╗███████╗\n");

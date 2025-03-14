@@ -19,12 +19,12 @@ int	main(int argc, char **argv)
 	print_start();
 	ft_bzero(&cub, sizeof(t_cub3d));
 	if (check_input(argc, argv) != 0)
-		return (1);
+		return (print_end(1), 1);
 	if (check_map(argv[1], &cub.map) != 0)
-		return (1);
+		return (print_end(1), 1);
 	if (init_game(&cub) != 0)
-		return (1);
+		return (print_end(1), 1);
 	if (start_game(&cub) != 0)
-		return (1);
-	return (print_end(), 0);
+		return (print_end(1), 1);
+	return (print_end(0), 0);
 }

@@ -72,6 +72,7 @@ clean :
 
 fclean : clean
 	@$(RM) $(NAME)
+	@$(RM) -rf $(MLX42_DIR)
 	@make -C $(LIBFT_PATH) fclean > /dev/null 2>&1
 
 re : clean fclean all
