@@ -1,0 +1,13 @@
+NO textures/tree_blue.png
+SO textures/tree_green.png
+WE textures/tree_purp.png
+EA textures/tree_white.png
+
+F 60,200,65
+C 0,240,255
+
+111111
+100101
+101001
+1100N1
+111111
