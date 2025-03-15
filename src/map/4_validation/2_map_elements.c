@@ -6,7 +6,7 @@
 /*   By: sbruma <sbruma@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 16:05:01 by sbruma            #+#    #+#             */
-/*   Updated: 2025/03/07 13:42:35 by sbruma           ###   ########.fr       */
+/*   Updated: 2025/03/15 17:12:13 by sbruma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ int	check_bounds(t_map *map)
 
 void	save_player_data(t_map *map, int elem, int i, int j)
 {
-	map->player_pos.x = j;
-	map->player_pos.y = i;
+	map->player_pos.x = j + 0.001;
+	map->player_pos.y = i + 0.001;
 	if (elem == 'N')
 		map->player = 0;
 	else if (elem == 'S')
