@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   1_validate_map.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sbruma <sbruma@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 14:42:21 by sbruma            #+#    #+#             */
-/*   Updated: 2025/03/15 15:18:06 by marvin           ###   ########.fr       */
+/*   Updated: 2025/03/15 16:48:55 by sbruma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../inc/cub3d.h"
 
-int check_config(t_map *map)
+int	check_config(t_map *map)
 {
-	int tmp;
+	int	tmp;
 
 	tmp = 0;
-
-	if (!map->nord_texture || !map->south_texture || !map->west_texture || !map->east_texture)
+	if (!map->nord_texture || !map->south_texture
+		|| !map->west_texture || !map->east_texture)
 	{
 		printf("Error: Missing texture path\n");
 		tmp = 1;

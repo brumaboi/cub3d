@@ -6,7 +6,7 @@
 /*   By: sbruma <sbruma@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 13:20:58 by sbruma            #+#    #+#             */
-/*   Updated: 2025/03/05 13:24:16 by sbruma           ###   ########.fr       */
+/*   Updated: 2025/03/15 16:47:43 by sbruma           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,26 @@ int	check_hit(t_cub3d *cub, double x, double y)
 {
 	int	map_x;
 	int	map_y;
+	int	current_map_x;
+	int	current_map_y;
 
 	map_x = (int)x;
 	map_y = (int)y;
 	if (map_y < 0 || map_y >= cub->map.rows
 		|| map_x < 0 || map_x >= cub->map.columns)
 		return (0);
-	return (is_walkable(cub->map.map[map_y][map_x]));
+	if (!is_walkable(cub->map.map[map_y][map_x]))
+		return (0);
+	current_map_x = (int)cub->player.pos.x;
+	current_map_y = (int)cub->player.pos.y;
+	if (map_x != current_map_x && map_y != current_map_y)
+	{
+		if (!is_walkable(cub->map.map[current_map_y][map_x]))
+			return (0);
+		if (!is_walkable(cub->map.map[map_y][current_map_x]))
+			return (0);
+	}
+	return (1);
 }
 
 void	update_forward(t_cub3d *cub, double move_speed)
