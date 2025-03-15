@@ -25,18 +25,17 @@ int	is_texture(char *line)
 	return (0);
 }
 
-void	parse_texture(char *line, t_map *map)
+int	parse_texture(char *line, t_map *map)
 {
 	char	*path;
 
 	path = ft_strtrim(line + 2, " \t\n");
 	if (!path)
-		return ;
+		return (0);
 	if (!check_format(path, ".png"))
 	{
 		printf("Error: Invalid texture format\n");
-		free(path);
-		return ;
+		return (free(path), 0);
 	}
 	if (ft_strncmp(line, "NO ", 3) == 0 && !map->nord_texture)
 		map->nord_texture = path;
@@ -49,8 +48,9 @@ void	parse_texture(char *line, t_map *map)
 	else
 	{
 		printf("Error: Duplicate texture\n");
-		free(path);
+		return (free(path), 0);
 	}
+	return (1);
 }
 
 int	is_color(char *line)
@@ -62,7 +62,7 @@ int	is_color(char *line)
 	return (0);
 }
 
-void	right_color(char *line, char **rgb, t_map *map)
+int	right_color(char *line, char **rgb, t_map *map)
 {
 	int		r;
 	int		g;
@@ -71,8 +71,7 @@ void	right_color(char *line, char **rgb, t_map *map)
 	if (!rgb[0] || !rgb[1] || !rgb[2] || rgb[3] != NULL)
 	{
 		printf("Error: Invalid color\n");
-		free(*rgb);
-		return ;
+		return (free(*rgb), 0);
 	}
 	r = ft_atoi(rgb[0]);
 	g = ft_atoi(rgb[1]);
@@ -80,27 +79,27 @@ void	right_color(char *line, char **rgb, t_map *map)
 	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
 	{
 		printf("Error: Invalid color\n");
-		free(*rgb);
-		return ;
+		return (free(*rgb), 0);
 	}
 	free(rgb);
 	if (ft_strncmp(line, "F ", 2) == 0)
 		map->floor_color = (r << 24) + (g << 16) + (b << 8) + 0xFF;
 	else
 		map->ceiling_color = (r << 24) + (g << 16) + (b << 8) + 0xFF;
+	return (1);
 }
 
-void	parse_color(char *line, t_map *map)
+int	parse_color(char *line, t_map *map)
 {
 	char	**rgb;
 	char	*color;
 
 	color = ft_strtrim(line + 1, " \t\n");
 	if (!color)
-		return ;
+		return (0);
 	rgb = ft_split(color, ',');
 	free(color);
 	if (!*rgb)
-		return ;
-	right_color(line, rgb, map);
+		return (0);
+	return (right_color(line, rgb, map));
 }

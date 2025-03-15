@@ -1,6 +1,6 @@
-NO textures/tree_blue.png
-SO textures/tree_green.png
-WE textures/tree_purp.png
+NO resources/textures/tree_blue.png
+SO resources/textures/tree_green.png
+WE resources/textures/tree_purp.png
 
 F 60,200,65
 C 0,240,255

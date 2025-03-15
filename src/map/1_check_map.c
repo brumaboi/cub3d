@@ -18,6 +18,8 @@ int	check_map(char *path, t_map *map)
 	char	*line;
 
 	ft_bzero(map, sizeof(t_map));
+	map->floor_color = -1;
+	map->ceiling_color = -1;
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 		return (printf("Error: Could not open file\n"), 1);
@@ -25,7 +27,11 @@ int	check_map(char *path, t_map *map)
 	while (line != 0)
 	{
 		if (!parse_line(line, map))
+		{
+			free(line);
+			close(fd);
 			return (1);
+		}
 		free(line);
 		line = get_next_line(fd);
 	}

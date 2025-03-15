@@ -1,7 +1,7 @@
-NO textures/tree_blue.png
-SO textures/tree_green.png
-WE textures/tree_purp.png
-EA textures/tree_white.png
+NO resources/textures/tree_blue.png
+SO resources/textures/tree_green.png
+WE resources/textures/tree_purp.png
+EA resources/textures/tree_white.png
 
 F 60,200,65
 

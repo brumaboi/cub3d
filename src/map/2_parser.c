@@ -46,15 +46,20 @@ int	parse_line(char *line, t_map *map)
 	if (trimmed_line[0] == '\0')
 		return (free(trimmed_line), 1);
 	if (is_texture(trimmed_line))
-		parse_texture(trimmed_line, map);
+	{
+		if (!parse_texture(trimmed_line, map))
+			return (free(trimmed_line), 0);
+	}
 	else if (is_color(trimmed_line))
-		parse_color(trimmed_line, map);
+	{
+		if (!parse_color(trimmed_line, map))
+			return (free(trimmed_line), 0);
+	}
 	else
 	{
 		map_line = ft_strtrim(line, "\n\r");
 		parse_map(map_line, map);
 		free(map_line);
 	}
-	free(trimmed_line);
-	return (1);
+	return (free(trimmed_line), 1);
 }
